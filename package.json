@@ -1,6 +1,6 @@
 {
   "name": "vision-camera-code-scanner-new",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "VisionCamera Frame Processor Plugin to read barcodes using MLKit Vision Barcode Scanning - FORK https://github.com/Fabianurrutia/vision-camera-code-scanner-new/tree/react-native-vision-camera-v3-1",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
