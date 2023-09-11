@@ -32,7 +32,7 @@ export default function App() {
           style={StyleSheet.absoluteFill}
           device={device}
           isActive={true}
-          pixelFormat={'native'}
+          pixelFormat={'yuv'}
           frameProcessor={frameProcessor}
         />
         {barcodes.map((barcode, idx) => (

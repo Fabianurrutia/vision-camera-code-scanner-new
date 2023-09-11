@@ -70,32 +70,25 @@ public class VisionCameraCodeScannerPlugin extends FrameProcessorPlugin {
     Image mediaImage = frame.getImage();
     if (mediaImage != null) {
       ArrayList<Task<List<Barcode>>> tasks = new ArrayList<Task<List<Barcode>>>();
-      Log.i("step", "1");
-      Log.i("step", String.valueOf(mediaImage.getFormat()));
       InputImage image = InputImage.fromMediaImage(mediaImage, Orientation.PORTRAIT.toDegrees());
-      
-      // InputImage image = InputImage.fromBitmap(mediaImage, Orientation.PORTRAIT.toDegrees());
+      if (arguments != null && arguments.containsKey("checkInverted")) {
+        boolean checkInverted = (Boolean) arguments.get("checkInverted");
 
-      // if (arguments != null && arguments.containsKey("checkInverted")) {
-      //   boolean checkInverted = (Boolean) arguments.get("checkInverted");
-
-      //   if (checkInverted) {
-      //     Bitmap bitmap = null;
-      //     try {
-      //       bitmap = ImageConvertUtils.getInstance().getUpRightBitmap(image);
-      //       Bitmap invertedBitmap = this.invert(bitmap);
-      //       InputImage invertedImage = InputImage.fromBitmap(invertedBitmap, 0);
-      //       tasks.add(barcodeScanner.process(invertedImage));
-      //     } catch (Exception e) {
-      //       e.printStackTrace();
-      //       return null;
-      //     }
-      //   }
-      // }
-      Log.i("step", "2");
+        if (checkInverted) {
+          Bitmap bitmap = null;
+          try {
+            bitmap = ImageConvertUtils.getInstance().getUpRightBitmap(image);
+            Bitmap invertedBitmap = this.invert(bitmap);
+            InputImage invertedImage = InputImage.fromBitmap(invertedBitmap, 0);
+            tasks.add(barcodeScanner.process(invertedImage));
+          } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+          }
+        }
+      }
 
       tasks.add(barcodeScanner.process(image));
-      Log.i("step", "3");
 
       try {
         ArrayList<Barcode> barcodes = new ArrayList<Barcode>();
