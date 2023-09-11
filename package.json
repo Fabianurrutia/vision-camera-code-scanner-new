@@ -1,7 +1,7 @@
 {
-  "name": "vision-camera-code-scanner",
-  "version": "0.2.0",
-  "description": "VisionCamera Frame Processor Plugin to read barcodes using MLKit Vision Barcode Scanning",
+  "name": "vision-camera-code-scanner-new",
+  "version": "0.1.0",
+  "description": "VisionCamera Frame Processor Plugin to read barcodes using MLKit Vision Barcode Scanning - FORK https://github.com/Fabianurrutia/vision-camera-code-scanner-new/tree/react-native-vision-camera-v3-1",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
   "types": "lib/typescript/src/index.d.ts",
@@ -36,13 +36,13 @@
     "ios",
     "android"
   ],
-  "repository": "https://github.com/rodgomesc/vision-camera-code-scanner",
+  "repository": "https://github.com/Fabianurrutia/vision-camera-code-scanner-new",
   "author": "Rodrigo gomes <rodgomesc@gmail.com> (https://github.com/rodgomesc)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rodgomesc/vision-camera-code-scanner/issues"
+    "url": "https://github.com/Fabianurrutia/vision-camera-code-scanner-new/issues"
   },
-  "homepage": "https://github.com/rodgomesc/vision-camera-code-scanner#readme",
+  "homepage": "https://github.com/Fabianurrutia/vision-camera-code-scanner-new#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
