@@ -10635,9 +10635,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-vision-camera@patch:react-native-vision-camera@npm%3A3.0.0#./.yarn/patches/react-native-vision-camera-npm-3.0.0-21b4ab30d7.patch::locator=vision-camera-code-scanner%40workspace%3A.":
+"react-native-vision-camera@patch:react-native-vision-camera@npm%3A3.0.0#./.yarn/patches/react-native-vision-camera-npm-3.0.0-21b4ab30d7.patch::locator=vision-camera-code-scanner-new%40workspace%3A.":
   version: 3.0.0
-  resolution: "react-native-vision-camera@patch:react-native-vision-camera@npm%3A3.0.0#./.yarn/patches/react-native-vision-camera-npm-3.0.0-21b4ab30d7.patch::version=3.0.0&hash=88f3c6&locator=vision-camera-code-scanner%40workspace%3A."
+  resolution: "react-native-vision-camera@patch:react-native-vision-camera@npm%3A3.0.0#./.yarn/patches/react-native-vision-camera-npm-3.0.0-21b4ab30d7.patch::version=3.0.0&hash=88f3c6&locator=vision-camera-code-scanner-new%40workspace%3A."
   dependencies:
     string-hash-64: ^1.0.3
   peerDependencies:
@@ -12563,9 +12563,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vision-camera-code-scanner@workspace:.":
+"vision-camera-code-scanner-new@workspace:.":
   version: 0.0.0-use.local
-  resolution: "vision-camera-code-scanner@workspace:."
+  resolution: "vision-camera-code-scanner-new@workspace:."
   dependencies:
     "@commitlint/config-conventional": ^17.7.0
     "@react-native-community/eslint-config": ^3.2.0
