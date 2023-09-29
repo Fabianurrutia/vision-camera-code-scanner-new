@@ -13,8 +13,6 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.media.Image;
 
-import com.facebook.react.bridge.ReadableNativeArray;
-
 import com.mrousavy.camera.frameprocessor.Frame;
 import com.mrousavy.camera.frameprocessor.FrameProcessorPlugin;
 import com.mrousavy.camera.parsers.Orientation;
@@ -38,7 +36,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.Map;
-import android.util.Log;
 
 public class VisionCameraCodeScannerPlugin extends FrameProcessorPlugin {
   private BarcodeScanner barcodeScanner = null;
@@ -63,16 +60,17 @@ public class VisionCameraCodeScannerPlugin extends FrameProcessorPlugin {
   ));
 
   @Override
-  public Object callback(Frame frame, Map<String, Object> arguments) {
-    createBarcodeInstance(arguments);
+  public Object callback(@NonNull Frame frame, @Nullable Map<String, Object> params) {
+    createBarcodeInstance(params);
 
     @SuppressLint("UnsafeOptInUsageError")
     Image mediaImage = frame.getImage();
     if (mediaImage != null) {
       ArrayList<Task<List<Barcode>>> tasks = new ArrayList<Task<List<Barcode>>>();
-      InputImage image = InputImage.fromMediaImage(mediaImage, Orientation.PORTRAIT.toDegrees());
-      if (arguments != null && arguments.containsKey("checkInverted")) {
-        boolean checkInverted = (Boolean) arguments.get("checkInverted");
+      InputImage image = InputImage.fromMediaImage(mediaImage, Orientation.Companion.fromUnionValue(frame.getOrientation()).toDegrees());
+
+      if (params != null && params.containsKey("checkInverted")) {
+        boolean checkInverted = (Boolean) params.get("checkInverted");
 
         if (checkInverted) {
           Bitmap bitmap = null;
@@ -108,46 +106,40 @@ public class VisionCameraCodeScannerPlugin extends FrameProcessorPlugin {
     return null;
   }
 
-  private void createBarcodeInstance(@Nullable Map<String, Object> arguments) {
-    if (arguments != null && arguments.containsKey("types") && arguments.get("types") instanceof List<?>) {
-        // List<?> typesList = (List<?>) arguments.get("types");
+  private void createBarcodeInstance(@Nullable Map<String, Object> params) {
+    if (params != null && params.containsKey("types") && params.get("types") instanceof ArrayList) {
+      ArrayList<Double> rawFormats = (ArrayList<Double>) params.get("types");
 
-        // if (typesList.isEmpty()) {
-        //     throw new IllegalArgumentException("Types list must not be empty");
-        // }
+      int formatsBitmap = 0;
+      int formatsIndex = 0;
+      int formatsSize = rawFormats.size();
+      int[] formats = new int[formatsSize];
 
-        // List<Integer> formatsList = new ArrayList<>();
-
-        // for (Object type : typesList) {
-        //     if (type instanceof Integer) {
-        //         int format = (Integer) type;
-        //         if (barcodeFormats.contains(format)) {
-        //             formatsList.add(format);
-        //         }
-        //     } else {
-        //         throw new IllegalArgumentException("Invalid type in the list");
-        //     }
-        // }
-
-        // if (formatsList.isEmpty()) {
-        //     throw new IllegalArgumentException("No valid Barcode format found in the types list");
-        // }
-
-        // int formatsSize = formatsList.size();
-        // int[] formats = new int[formatsSize];
-
-        // for (int i = 0; i < formatsSize; i++) {
-        //     formats[i] = formatsList.get(i);
-        // }
-
-        if (barcodeScanner == null) {
-          barcodeScanner = BarcodeScanning.getClient(
-                  new BarcodeScannerOptions.Builder()
-                          .setBarcodeFormats(Barcode.FORMAT_QR_CODE, Barcode.FORMAT_UPC_A)
-                          .build());
+      for (int i = 0; i < formatsSize; i++) {
+        int format = rawFormats.get(i).intValue();
+        if (barcodeFormats.contains(format)){
+          formats[formatsIndex] = format;
+          formatsIndex++;
+          formatsBitmap |= format;
         }
+      }
+
+      if (formatsIndex == 0) {
+        throw new ArrayIndexOutOfBoundsException("Need to provide at least one valid Barcode format");
+      }
+
+      if (barcodeScanner == null || formatsBitmap != barcodeScannerFormatsBitmap) {
+        barcodeScanner = BarcodeScanning.getClient(
+          new BarcodeScannerOptions.Builder()
+            .setBarcodeFormats(
+              formats[0],
+              Arrays.copyOfRange(formats, 1, formatsIndex)
+            )
+            .build());
+        barcodeScannerFormatsBitmap = formatsBitmap;
+      }
     } else {
-        throw new IllegalArgumentException("Second parameter must be a non-empty list of integers");
+      throw new IllegalArgumentException("Second parameter must be an Array");
     }
   }
 
