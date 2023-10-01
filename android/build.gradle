@@ -6,7 +6,7 @@ buildscript {
         }
 
         dependencies {
-            classpath 'com.android.tools.build:gradle:7.3.1'
+            classpath 'com.android.tools.build:gradle'
         }
     }
 }
@@ -19,7 +19,7 @@ def safeExtGet(prop, fallback) {
 
 android {
     compileSdkVersion safeExtGet('VisionCameraCodeScanner_compileSdkVersion', 33)
-    ndkVersion "21.4.7075529"
+    ndkVersion = "26.0.10792818"
     defaultConfig {
         minSdkVersion safeExtGet('VisionCameraCodeScanner_minSdkVersion', 26)
         targetSdkVersion safeExtGet('VisionCameraCodeScanner_targetSdkVersion', 33)
@@ -56,6 +56,6 @@ dependencies {
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
     api project(":react-native-vision-camera")
-    implementation "androidx.camera:camera-core:1.1.0-alpha06"
+    implementation "androidx.camera:camera-core:1.3.0-alpha03"
     implementation 'com.google.mlkit:barcode-scanning:17.2.0'
 }

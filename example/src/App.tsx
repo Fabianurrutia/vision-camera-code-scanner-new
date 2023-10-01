@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { Platform, StyleSheet, Text } from 'react-native';
 import { Camera, useCameraDevice, useCameraFormat } from 'react-native-vision-camera';
-import { BarcodeFormat, useScanBarcodes } from 'vision-camera-code-scanner';
+import { BarcodeFormat, useScanBarcodes } from '../../src';
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from './Constants'
 
 export default function App() {
