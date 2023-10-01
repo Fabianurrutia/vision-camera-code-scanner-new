@@ -96,9 +96,9 @@ android {
     
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.visioncameracodescanner"
+    namespace "com.example.visioncameracodescanner"
     defaultConfig {
-        applicationId "com.visioncameracodescanner"
+        applicationId "com.example.visioncameracodescanner"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -164,15 +164,6 @@ dependencies {
         implementation("com.facebook.react:hermes-android")
     } else {
         implementation jscFlavor
-    }
-
-    constraints {
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0") {
-            because("kotlin-stdlib-jdk7 is now a part of kotlin-stdlib")
-        }
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0") {
-            because("kotlin-stdlib-jdk8 is now a part of kotlin-stdlib")
-        }
     }
 
     implementation project(':visioncameracodescanner')
